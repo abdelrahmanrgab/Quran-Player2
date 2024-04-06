@@ -1,0 +1,176 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Tajawal", sans-serif;
+  background: var(--background-color);
+  --text-color: #404040;
+  --background-color: #f6f6f6;
+  --card-color: #fff;
+  --btns-color: #2e2e2e;
+  --shadow: #bbbbbb1c;
+}
+
+body.dark {
+  --text-color: #fafafa;
+  --background-color: #212529;
+  --card-color: #1b1f22;
+  --btns-color: #ffffff;
+  --shadow: #3f3f3f1c;
+}
+
+.container {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-inline: auto;
+}
+
+/* Small */
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+/* Medium */
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/* Large */
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+h1 {
+  font-size: 1.875rem;
+  font-weight: bold;
+  letter-spacing: -0.0125em;
+  padding-top: 2rem;
+  text-align: center;
+  color: var(--text-color);
+
+  @media (min-width: 640px) {
+    font-size: 2.25rem;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 2.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 3rem;
+  }
+}
+
+.card {
+  box-shadow: 0 3px 3px var(--shadow), 0 0px 3px var(--shadow);
+  text-align: center;
+  color: var(--text-color);
+  background: var(--card-color);
+  border-radius: 5px;
+  line-height: 1.8;
+  margin-inline: 18px;
+  display: flex;
+  overflow: hidden;
+  font-size: 28px;
+  font-weight: 500;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .card {
+    font-size: 15px;
+  }
+}
+
+.content {
+  padding: 20px;
+  flex-shrink: 0;
+  width: 100%;
+  height: fit-content;
+}
+
+.details {
+  padding: 20px;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-btn {
+  color: var(--btns-color);
+}
+
+#left-btn {
+  opacity: 50%;
+}
+
+.btns {
+  width: 50px;
+  aspect-ratio: 1/1;
+  background: var(--btns-color);
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 3px 3px var(--shadow), 0 0px 3px var(--shadow);
+  color: var(--card-color);
+  font-size: 22px;
+}
+
+.btns,
+.nav-btn {
+  cursor: pointer;
+}
+
+.btns-container {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  gap: 20px;
+}
+
+/* Base styles for select element */
+.select {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style for select element */
+.select select {
+  appearance: none;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: var(--text-color);
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  outline: none;
+}
+
+/* Style for dropdown options */
+.select select option {
+  background-color: transparent;
+  color: #4b5563;
+}
+
+/* Style for dropdown when opened */
+.select select:focus {
+  border-color: #6b7280;
+  box-shadow: 0 0 0 1px #6b7280;
+}

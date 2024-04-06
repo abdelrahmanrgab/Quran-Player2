@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title> أدعية من القرأن الكريم</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1> القرأن الكريم</h1>
+  <div class="container cards active">
+    <span class="fas fa-chevron-left nav-btn" id="left-btn"></span>
+    <span class="card">
+      <span class="content"></span>
+      <span class="details">
+        <div class="select">
+          <select id="souraSelect" class="select-dropdown"></select>
+        </div>
+        <div class="select">
+          <select id="ayahSelect" class="select-dropdown"></select>
+        </div>
+      </span>
+    </span>
+    <span class="fas fa-chevron-right nav-btn" id="right-btn"></span>
+  </div>
+
+  <div class="btns-container">
+    <span class="dark-mode-btn btns fas fa-moon"></span>
+    <span id="audioBtn" class="fas fa-play btns"></span>
+  </div>
+  <!-- for audio-->
+  <audio id="myAudio"></audio>
+  <script src="main.js"></script>
+</body>
+
+</html>
