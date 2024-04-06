@@ -1,3 +1,3 @@
 ### أدعية من القرأن الكريم
-![screenshot](https://i.imgur.com/29IYVhq.png)
+![screenshot](https://i.imgur.com/kPNixEJ.png)
 [alquran.cloud](https://alquran.cloud/api)
