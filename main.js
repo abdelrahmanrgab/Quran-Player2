@@ -3,8 +3,8 @@ const content = document.querySelector(".content");
 const leftBtn = document.querySelector("#left-btn");
 const rightBtn = document.querySelector("#right-btn");
 const darkModeBtn = document.querySelector(".dark-mode-btn");
-const suraSelect = document.getElementById('souraSelect');
-const ayahSelect = document.getElementById('ayahSelect');
+const suraSelect = document.getElementById("souraSelect");
+const ayahSelect = document.getElementById("ayahSelect");
 const audio = document.getElementById("myAudio");
 const audioBtn = document.getElementById("audioBtn");
 
@@ -16,9 +16,14 @@ let data; // Store fetched data
 // Fetch all ayahs
 const fetchAllAyahs = async () => {
   try {
-    const response = await fetch(`https://api.alquran.cloud/v1/quran/ar.alafasy`);
+    const response = await fetch(
+      `https://api.alquran.cloud/v1/quran/ar.alafasy`
+    );
     const jsonData = await response.json();
-    data = jsonData.data; // Store fetched data
+    data = jsonData.data;
+    // Store fetched data
+    document.getElementById("loader").style.display = "none";
+    // Hide the loader once the data is fetched
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -27,8 +32,7 @@ const fetchAllAyahs = async () => {
 // Display current ayah
 const displayAyah = () => {
   content.textContent = data.surahs[surahsIndex].ayahs[ayahsIndex].text;
-  audio.src = data.surahs[surahsIndex].ayahs[ayahsIndex].audio; // Set audio source
-  playAudio(); // Play audio
+  audio.src = data.surahs[surahsIndex].ayahs[ayahsIndex].audio;
 };
 
 // Move to previous ayah or previous surah if the current surah is finished
@@ -44,7 +48,8 @@ const leftMove = () => {
     leftBtn.style.opacity = 0.5;
     return;
   }
-  updateDropdownValues(); // Update dropdown values
+  updateDropdownValues();
+  // Update dropdown values
   displayAyah();
 };
 
@@ -61,15 +66,15 @@ const rightMove = () => {
     rightBtn.style.opacity = 0.5;
     return;
   }
-  updateDropdownValues(); // Update dropdown values
+  updateDropdownValues(); 
+  // Update dropdown values
   displayAyah();
 };
 
 // Update dropdown values
 const updateDropdownValues = () => {
-  suraSelect.value = surahsIndex; // Update surah dropdown value
-  populateAyahDropdown(); // Repopulate ayah dropdown based on the updated surah
-  ayahSelect.value = ayahsIndex + 1; // Update ayah dropdown value (+1 because dropdown values start from 1)
+  suraSelect.value = surahsIndex;
+  ayahSelect.value = ayahsIndex + 1; // values start from 1
 };
 
 // Toggle dark mode
@@ -86,20 +91,21 @@ const toggleDarkMode = () => {
 // Populate surah dropdown
 const populateSurahDropdown = () => {
   data.surahs.forEach((surah, index) => {
-    const option = document.createElement('option');
+    const option = document.createElement("option");
     option.value = index;
     option.textContent = surah.name;
     suraSelect.appendChild(option);
   });
 };
 
-// Populate ayah dropdown based on selected surah
+// Populate ayah lists based on selected surah
 const populateAyahDropdown = () => {
   const selectedSurahIndex = parseInt(suraSelect.value);
   const ayahCount = data.surahs[selectedSurahIndex].ayahs.length;
-  ayahSelect.innerHTML = ''; // Clear previous options
+  ayahSelect.innerHTML = "";
+  // Clear previous options
   for (let i = 1; i <= ayahCount; i++) {
-    const option = document.createElement('option');
+    const option = document.createElement("option");
     option.value = i;
     option.textContent = `آية ${i}`;
     ayahSelect.appendChild(option);
@@ -110,14 +116,18 @@ const populateAyahDropdown = () => {
 leftBtn.addEventListener("click", leftMove);
 rightBtn.addEventListener("click", rightMove);
 darkModeBtn.addEventListener("click", toggleDarkMode);
-suraSelect.addEventListener('change', () => {
+suraSelect.addEventListener("change", () => {
   surahsIndex = parseInt(suraSelect.value);
-  ayahsIndex = 0; // Reset ayahsIndex
-  populateAyahDropdown(); // Populate ayah dropdown based on selected surah
-  displayAyah(); // Display first ayah of selected surah
+  ayahsIndex = 0;
+  // Reset ayahsIndex
+  populateAyahDropdown();
+  // Populate ayah lists based on selected surah
+  displayAyah();
+  // Display first ayah of selected surah
 });
-ayahSelect.addEventListener('change', () => {
-  ayahsIndex = parseInt(ayahSelect.value) - 1; // -1 because ayah indices start from 0
+ayahSelect.addEventListener("change", () => {
+  ayahsIndex = parseInt(ayahSelect.value) - 1;
+
   displayAyah();
 });
 audioBtn.addEventListener("click", () => {
@@ -143,7 +153,6 @@ const pauseAudio = () => {
   audioBtn.classList.add("fa-play");
 };
 
-// After fetching data from the API
 window.addEventListener("load", async () => {
   if (localStorage["mode"] === "dark") {
     document.body.classList.add("dark");
