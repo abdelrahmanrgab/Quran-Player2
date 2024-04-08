@@ -44,7 +44,7 @@ window.addEventListener("load", async () => {
     surahsIndex = parseInt(storedSurahsIndex);
     ayahsIndex = parseInt(storedAyahsIndex);
     populateSurahDropdown();
-    populateAyahDropdown();
+    populateAyahDropdown(surahsIndex);
     displayAyah();
     suraSelect.value = surahsIndex; // Set surah dropdown value
     ayahSelect.value = ayahsIndex + 1; // Set ayah dropdown value
@@ -53,7 +53,7 @@ window.addEventListener("load", async () => {
     // Fetch data if not in local storage
     await fetchAllAyahs();
     populateSurahDropdown();
-    populateAyahDropdown();
+    populateAyahDropdown(surahsIndex);
     displayAyah();
   }
 });
@@ -108,6 +108,7 @@ const updateDropdownValues = () => {
   ayahSelect.value = ayahsIndex + 1;
   localStorage.setItem("surahsIndex", surahsIndex);
   localStorage.setItem("ayahsIndex", ayahsIndex);
+  
 };
 
 //_______________________________________
@@ -123,9 +124,8 @@ const populateSurahDropdown = () => {
 
 //_______________________________________
 // Populate ayah lists based on selected surah
-const populateAyahDropdown = () => {
-  const selectedSurahIndex = parseInt(suraSelect.value);
-  const ayahCount = data.surahs[selectedSurahIndex].ayahs.length;
+const populateAyahDropdown = (SurahIndex) => {
+  const ayahCount = data.surahs[SurahIndex].ayahs.length;
   ayahSelect.innerHTML = "";
   for (let i = 1; i <= ayahCount; i++) {
     const option = document.createElement("option");
@@ -144,7 +144,7 @@ darkModeBtn.addEventListener("click", toggleDarkMode);
 suraSelect.addEventListener("change", () => {
   surahsIndex = parseInt(suraSelect.value);
   ayahsIndex = 0;
-  populateAyahDropdown();
+  populateAyahDropdown(surahsIndex);
   updateDropdownValues();
   displayAyah();
 });
