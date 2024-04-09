@@ -64,6 +64,8 @@ const displayAyah = () => {
   audio.src = data.surahs[surahsIndex].ayahs[ayahsIndex].audio;
 
   playAudio();
+  audioBtn.classList.remove("fa-pause");
+  audioBtn.classList.add("fa-play");
 };
 
 //_______________________________________
