@@ -62,9 +62,6 @@ window.addEventListener("load", async () => {
 const displayAyah = () => {
   content.textContent = data.surahs[surahsIndex].ayahs[ayahsIndex].text;
   audio.src = data.surahs[surahsIndex].ayahs[ayahsIndex].audio;
-
-  playAudio();
-
 };
 
 //_______________________________________
