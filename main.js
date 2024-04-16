@@ -161,6 +161,17 @@ audioBtn.addEventListener("click", () => {
   else pauseAudio();
 });
 
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Space") {
+    event.preventDefault(); // Prevent default spacebar behavior (scrolling)
+    if (audio.paused) {
+      playAudio();
+    } else {
+      pauseAudio();
+    }
+  }
+});
+
 // Event listener for audio ended event
 audio.onended = ()=>{
 rightMove();
