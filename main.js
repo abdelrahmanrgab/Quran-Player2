@@ -156,6 +156,8 @@ ayahSelect.addEventListener("change", () => {
   displayAyah();
 });
 
+//_______________________________________
+
 // Event listener for audio button
 audioBtn.addEventListener("click", () => {
   if (audio.paused) playAudio();
@@ -163,9 +165,10 @@ audioBtn.addEventListener("click", () => {
 });
 
 // Event listener for audio ended event
-audio.onended = rightMove;
-
-//_______________________________________
+audio.onended = ()=>{
+rightMove();
+playAudio();
+}
 // Play audio
 const playAudio = () => {
   audio.play();
