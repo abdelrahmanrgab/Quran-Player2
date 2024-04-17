@@ -16,9 +16,7 @@ let data;
 // Fetch all ayahs
 const fetchAllAyahs = async () => {
   try {
-    const response = await fetch(
-      `https://api.alquran.cloud/v1/quran/ar.alafasy`
-    );
+    const response = await fetch(`https://api.alquran.cloud/v1/quran/ar.alafasy`);
     const jsonData = await response.json();
     data = jsonData.data;
     localStorage.setItem("quranData", JSON.stringify(data));
@@ -30,7 +28,6 @@ const fetchAllAyahs = async () => {
   }
 };
 
-//_______________________________________
 // Event listener for window load event
 window.addEventListener("load", async () => {
   // Check if dark mode is enabled
@@ -57,14 +54,13 @@ window.addEventListener("load", async () => {
     displayAyah();
   }
 });
-//_______________________________________
+
 // Display current ayah
 const displayAyah = () => {
   content.textContent = data.surahs[surahsIndex].ayahs[ayahsIndex].text;
   audio.src = data.surahs[surahsIndex].ayahs[ayahsIndex].audio;
 };
 
-//_______________________________________
 // Move to previous ayah or previous surah if the current surah is finished
 const leftMove = () => {
   if (ayahsIndex > 0) ayahsIndex--;
@@ -74,6 +70,7 @@ const leftMove = () => {
   } else return;
   updateDropdownValues();
   displayAyah();
+  playAudio();
 };
 
 // Move to next ayah or next surah if the current surah is finished
@@ -85,9 +82,12 @@ const rightMove = () => {
   } else return;
   updateDropdownValues();
   displayAyah();
+  playAudio();
 };
 
-//_______________________________________
+leftBtn.addEventListener("click", leftMove);
+rightBtn.addEventListener("click", rightMove);
+
 // Toggle dark mode
 const toggleDarkMode = () => {
   if (localStorage["mode"] === "light") {
@@ -98,18 +98,8 @@ const toggleDarkMode = () => {
     localStorage["mode"] = "light";
   }
 };
+darkModeBtn.addEventListener("click", toggleDarkMode);
 
-//_______________________________________
-// Update dropdown values
-const updateDropdownValues = () => {
-  suraSelect.value = surahsIndex;
-  ayahSelect.value = ayahsIndex + 1;
-  localStorage.setItem("surahsIndex", surahsIndex);
-  localStorage.setItem("ayahsIndex", ayahsIndex);
-  
-};
-
-//_______________________________________
 // Populate surah dropdown
 const populateSurahDropdown = () => {
   data.surahs.forEach((surah, index) => {
@@ -120,7 +110,6 @@ const populateSurahDropdown = () => {
   });
 };
 
-//_______________________________________
 // Populate ayah lists based on selected surah
 const populateAyahDropdown = (SurahIndex) => {
   const ayahCount = data.surahs[SurahIndex].ayahs.length;
@@ -133,11 +122,13 @@ const populateAyahDropdown = (SurahIndex) => {
   }
 };
 
-//_______________________________________
-// Event listeners
-leftBtn.addEventListener("click", leftMove);
-rightBtn.addEventListener("click", rightMove);
-darkModeBtn.addEventListener("click", toggleDarkMode);
+// Update dropdown values
+const updateDropdownValues = () => {
+  suraSelect.value = surahsIndex;
+  ayahSelect.value = ayahsIndex + 1;
+  localStorage.setItem("surahsIndex", surahsIndex);
+  localStorage.setItem("ayahsIndex", ayahsIndex);
+};
 
 suraSelect.addEventListener("change", () => {
   surahsIndex = parseInt(suraSelect.value);
@@ -152,8 +143,6 @@ ayahSelect.addEventListener("change", () => {
   updateDropdownValues();
   displayAyah();
 });
-
-//_______________________________________
 
 // Event listener for audio button
 audioBtn.addEventListener("click", () => {
@@ -173,20 +162,25 @@ document.addEventListener("keydown", (event) => {
 });
 
 // Event listener for audio ended event
-audio.onended = ()=>{
-rightMove();
-playAudio();
-}
+audio.onended = () => {
+  rightMove();
+  playAudio();
+};
+
 // Play audio
 const playAudio = () => {
-  audio.play();
-  audioBtn.classList.remove("fa-play");
-  audioBtn.classList.add("fa-pause");
+  if (audio.paused) { // Check if audio is paused before playing
+    audio.play();
+    audioBtn.classList.remove("fa-play");
+    audioBtn.classList.add("fa-pause");
+  }
 };
 
 // Pause audio
 const pauseAudio = () => {
-  audio.pause();
-  audioBtn.classList.remove("fa-pause");
-  audioBtn.classList.add("fa-play");
+  if (!audio.paused) { // Check if audio is playing before pausing
+    audio.pause();
+    audioBtn.classList.remove("fa-pause");
+    audioBtn.classList.add("fa-play");
+  }
 };
